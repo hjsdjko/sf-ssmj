@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ShuifeixinxiDao">
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.id as id
+        ,a.money_time as moneyTime
+        ,a.yh_types as yhTypes
+        ,a.meterdata as meterdata
+        ,a.sb_types as sbTypes
+        ,a.notice_content as noticeContent
+        ,a.lastmeter as lastmeter
+        ,a.useyield as useyield
+        ,a.money as money
+        ,a.maxmoney as maxmoney
+        ,a.notice_time as noticeTime
+    </sql>
+
+    <select id="selectListView" parameterType="map" resultType="com.entity.view.ShuifeixinxiView" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM Shuifeixinxi  a
+        <where>
+            <if test=" params.sbTypes != '' and params.sbTypes != null and params.sbTypes != 'null' ">
+                and a.sb_types = #{params.sbTypes}
+            </if>
+            <if test=" params.yh != '' and params.yh != null">
+                and a.yh_types = #{params.yh}
+            </if>
+        </where>
+        order by a.id desc
+    </select>
+
+</mapper>
